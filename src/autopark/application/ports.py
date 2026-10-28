@@ -1,4 +1,4 @@
-"""���� ���������� ������������ ������."""
+"""Порт збереження транспортних засобів."""
 from typing import Protocol
 
 from autopark.domain.entities import Vehicle
@@ -12,7 +12,7 @@ class VehicleRepository(Protocol):
     def list_all(self) -> list[Vehicle]: ...
 
     def save(self, vehicle: Vehicle) -> None: ...
-"""���� ����� ������ ���������."""
+"""Порт обліку витрат автопарку."""
 from datetime import date
 from typing import Protocol
 
