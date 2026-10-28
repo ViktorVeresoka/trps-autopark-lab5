@@ -1,4 +1,4 @@
-"""������ ��� ������ ���������."""
+"""Сценарії для роботи автопарку."""
 from autopark.application.ports import VehicleRepository
 from autopark.domain.entities import Vehicle
 
