@@ -25,5 +25,7 @@ class Vehicle:
         self.mileage_km += distance_km
 
     def maintenance_status(self) -> str:
-        """Початкове значення уточнюється окремим запитом на зміну."""
-        return "Статус технічного обслуговування не визначено"
+        """Показує, чи не перевищено встановлений інтервал ТО."""
+        if self.mileage_km >= self.next_service_km:
+            return "Термінове ТО"
+        return "ТО не прострочене"
