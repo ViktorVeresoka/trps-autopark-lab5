@@ -1,4 +1,4 @@
-"""������� �� ������������ ������������� ������."""
+"""Витрати на експлуатацію транспортного засобу."""
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
@@ -15,8 +15,8 @@ class Expense:
 
     def __post_init__(self) -> None:
         if not self.expense_id.strip() or not self.vehicle_id.strip():
-            raise ValueError("�������������� ������� � ������������� ������ ����'�����")
+            raise ValueError("Ідентифікатори витрати й транспортного засобу обов'язкові")
         if not self.category.strip():
-            raise ValueError("�������� ������� ����'������")
+            raise ValueError("Категорія витрати обов'язкова")
         if self.amount_uah <= Decimal("0"):
-            raise ValueError("���� ������� �� ���� ������ �� ����")
+            raise ValueError("Сума витрати має бути більшою за нуль")
