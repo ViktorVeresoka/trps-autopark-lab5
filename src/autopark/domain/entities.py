@@ -25,5 +25,12 @@ class Vehicle:
         self.mileage_km += distance_km
 
     def maintenance_status(self) -> str:
-        """Початкове значення уточнюється окремим запитом на зміну."""
-        return "Статус технічного обслуговування не визначено"
+        """Оцінює наближення планового обслуговування за пробігом."""
+        remaining_km = self.next_service_km - self.mileage_km
+        if remaining_km < 0:
+            return "ТО прострочене"
+        if remaining_km == 0:
+            return "ТО потрібно зараз"
+        if remaining_km <= 500:
+            return "ТО наближається"
+        return "ТО не потрібне"
