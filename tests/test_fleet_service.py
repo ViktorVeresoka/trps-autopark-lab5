@@ -35,6 +35,22 @@ class FleetServiceTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.service.record_trip_mileage("missing", 50)
 
+    def test_maintenance_is_overdue_after_threshold(self) -> None:
+        vehicle = Vehicle("V-002", "AA1235BC", "MAN", "TGL", 125001, 125000)
+        self.assertEqual(vehicle.maintenance_status(), "ТО прострочене")
+
+    def test_maintenance_is_due_at_threshold(self) -> None:
+        vehicle = Vehicle("V-003", "AA1236BC", "MAN", "TGL", 125000, 125000)
+        self.assertEqual(vehicle.maintenance_status(), "ТО потрібно зараз")
+
+    def test_maintenance_warning_starts_within_500_km(self) -> None:
+        vehicle = Vehicle("V-004", "AA1237BC", "MAN", "TGL", 124500, 125000)
+        self.assertEqual(vehicle.maintenance_status(), "ТО наближається")
+
+    def test_maintenance_is_not_due_beyond_warning_range(self) -> None:
+        vehicle = Vehicle("V-005", "AA1238BC", "MAN", "TGL", 124000, 125000)
+        self.assertEqual(vehicle.maintenance_status(), "ТО не потрібне")
+
 
 if __name__ == "__main__":
     unittest.main()
