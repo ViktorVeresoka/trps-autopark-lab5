@@ -1,0 +1,9 @@
+[project]
+name = "autopark-management"
+version = "0.1.0"
+description = "Навчальна доменна модель вебсистеми автопідприємства"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.unittest]
+start-directory = "tests"
