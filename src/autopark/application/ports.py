@@ -1,4 +1,4 @@
-"""���� ���������� ������������ ������."""
+"""Порт збереження транспортних засобів."""
 from typing import Protocol
 
 from autopark.domain.entities import Vehicle
