@@ -1,4 +1,4 @@
-"""������ ��� ������ ���������."""
+"""Сценарії для роботи автопарку."""
 from autopark.application.ports import VehicleRepository
 from autopark.domain.entities import Vehicle
 
@@ -18,7 +18,7 @@ class FleetService:
 
     def list_vehicles(self) -> list[Vehicle]:
         return self._vehicles.list_all()
-"""���������� ���� ��� ������� �� �����."""
+"""Формування звіту про витрати за період."""
 from datetime import date
 from decimal import Decimal
 
@@ -32,7 +32,7 @@ class ExpenseReportService:
 
     def create(self, start: date, end: date) -> dict[str, object]:
         if end < start:
-            raise ValueError("ʳ���� ������ �� ���� ���������� �������")
+            raise ValueError("Кінець періоду не може передувати початку")
         rows = self._expenses.list_for_period(start, end)
         by_category: dict[str, Decimal] = {}
         for expense in rows:
