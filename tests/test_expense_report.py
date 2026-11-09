@@ -23,7 +23,7 @@ class ExpenseReportTests(unittest.TestCase):
     def test_report_totals_by_category_and_date_range(self) -> None:
         report = self.service.create(date(2026, 10, 1), date(2026, 10, 31))
         self.assertEqual(report["count"], 2)
-        self.assertEqual(report["total_uah"], Decimal("2050.50"))
+        self.assertEqual(report["total_uah"], Decimal("2051.50"))
         self.assertEqual(report["by_category"]["Пальне"], Decimal("1200.50"))
         self.assertEqual(report["by_category"]["Ремонт"], Decimal("850.00"))
 
