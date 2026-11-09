@@ -27,6 +27,17 @@ class ExpenseReportTests(unittest.TestCase):
         self.assertEqual(report["by_category"]["Пальне"], Decimal("1200.50"))
         self.assertEqual(report["by_category"]["Ремонт"], Decimal("850.00"))
 
+    def test_empty_period_returns_zero(self) -> None:
+        report = self.service.create(date(2026, 12, 1), date(2026, 12, 31))
+        self.assertEqual(report["count"], 0)
+        self.assertEqual(report["total_uah"], Decimal("0"))
+        self.assertEqual(report["by_category"], {})
+
+    def test_single_day_includes_boundary_expense(self) -> None:
+        report = self.service.create(date(2026, 10, 3), date(2026, 10, 3))
+        self.assertEqual(report["count"], 1)
+        self.assertEqual(report["total_uah"], Decimal("1200.50"))
+
     def test_reversed_period_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
             self.service.create(date(2026, 11, 1), date(2026, 10, 1))
