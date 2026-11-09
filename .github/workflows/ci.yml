@@ -1,0 +1,37 @@
+name: CI checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check Python syntax
+        run: python -m compileall -q src tests scripts
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Package project
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: python scripts/package_project.py
+      - name: Upload artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: autopark-package
+          path: dist/autopark-*.zip
+          if-no-files-found: error
+          retention-days: 30
